@@ -1,14 +1,14 @@
 export {
   default as NylasContainer,
-  NylasContainerOptions
+  NylasContainerOptions,
 } from './nylas-container';
 export {
   default as NylasContext,
   NylasContextInterface,
-  useNylas
+  useNylas,
 } from './nylas-context';
 export {
   NylasProps,
   AuthUrlOptions,
-  ExchangeCodeOptions
+  ExchangeCodeOptions,
 } from '@nylas/nylas-js';
