@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 import NylasContext from "./nylas-context";
-import Nylas, { AuthUrlOptions, ExchangeCodeOptions } from "@nylas/nylas-js";
+import Nylas, {AuthUrlOptions, ExchangeCodeOptions} from "@nylas/nylas-js";
 
 export interface NylasProviderProperties {
   serverBaseUrl: string;
@@ -20,21 +20,13 @@ const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   );
 
   const exchangeCodeFromUrlForToken = useCallback(
-    async (opts?: ExchangeCodeOptions): Promise<string | boolean> => {
-      const accessToken = await client.exchangeCodeFromUrlForToken(opts);
-      if(accessToken !== false) {
-        setAuthState(true);
-      }
-
-      return accessToken;
-    },
-    [client, authState]
+    async (opts?: ExchangeCodeOptions): Promise<string | boolean> => client.exchangeCodeFromUrlForToken(opts),
+    [client]
   )
 
   return (
     <NylasContext.Provider value={{
       client,
-      authState,
       authWithRedirect,
       exchangeCodeFromUrlForToken
     }}>

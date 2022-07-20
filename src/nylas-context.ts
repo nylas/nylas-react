@@ -3,7 +3,6 @@ import Nylas, { AuthUrlOptions, ExchangeCodeOptions } from '@nylas/nylas-js';
 
 export interface NylasContextInterface {
   client: Nylas;
-  authState: boolean;
   authWithRedirect(opts: AuthUrlOptions): Promise<void | boolean>;
   exchangeCodeFromUrlForToken(
     opts?: ExchangeCodeOptions
