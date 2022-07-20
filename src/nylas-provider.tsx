@@ -11,8 +11,6 @@ const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   const {children, ...nylasProps} = props;
   // todo::set to state
   const [client] = useState(() => new Nylas(nylasProps));
-  // todo::eliminate
-  const [authState, setAuthState] = useState(false);
 
   //todo::safeSetState
 
