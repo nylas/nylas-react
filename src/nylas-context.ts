@@ -1,12 +1,8 @@
 import * as React from 'react';
-import Nylas, { AuthUrlOptions, ExchangeCodeOptions } from '@nylas/nylas-js';
+import Nylas from '@nylas/nylas-js';
 
 export interface NylasContextInterface {
   client: Nylas;
-  authWithRedirect(opts: AuthUrlOptions): Promise<void | boolean>;
-  exchangeCodeFromUrlForToken(
-    opts?: ExchangeCodeOptions
-  ): Promise<string | boolean>;
 }
 
 const NylasContext = React.createContext<NylasContextInterface | null>(null);
