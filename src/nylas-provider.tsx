@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import NylasContext from "./nylas-context";
 import Nylas, {AuthUrlOptions, ExchangeCodeOptions} from "@nylas/nylas-js";
 
@@ -10,7 +10,11 @@ export interface NylasProviderProperties {
 const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   const {children, ...nylasProps} = props;
   // todo::set to state
-  const [client] = useState(() => new Nylas(nylasProps));
+  const [client, setClient] = useState<Nylas>();
+
+  useEffect(() => {
+    setClient(new Nylas(nylasProps));
+  }, [props])
 
   //todo::safeSetState
 
