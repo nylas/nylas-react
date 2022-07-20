@@ -2,15 +2,19 @@ import React, { useCallback, useState } from "react";
 import NylasContext from "./nylas-context";
 import Nylas, { AuthUrlOptions, ExchangeCodeOptions } from "@nylas/nylas-js";
 
-export interface NylasContainerProperties {
+export interface NylasProviderProperties {
   serverBaseUrl: string;
   children?: React.ReactNode;
 }
 
-const NylasContainer = (props: NylasContainerProperties): JSX.Element => {
+const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   const {children, ...nylasProps} = props;
+  // todo::set to state
   const [client] = useState(() => new Nylas(nylasProps));
+  // todo::eliminate
   const [authState, setAuthState] = useState(false);
+
+  //todo::safeSetState
 
   const authWithRedirect = useCallback(
     async (opts: AuthUrlOptions): Promise<void|boolean> => client.authWithRedirect(opts),
@@ -41,4 +45,4 @@ const NylasContainer = (props: NylasContainerProperties): JSX.Element => {
   )
 }
 
-export default NylasContainer;
+export default NylasProvider;

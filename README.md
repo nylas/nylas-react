@@ -39,7 +39,7 @@ The Nylas React SDK provides an easy way to implement authentication in your rea
 
 The Nylas React SDK provides the following component:
 
-* [NylasContainer](src/nylas-container.tsx) - This is a component that utilizes React Context API to maintain a state for authentication and the [Nylas JS](https://github.com/nylas/nylas-js) client. This context can be accessed via the [useNylas](https://github.com/nylas/nylas-react#useNylas) hook.
+* [NylasProvider](src/nylas-provider.tsx) - This is a component that utilizes React Context API to maintain a state for authentication and the [Nylas JS](https://github.com/nylas/nylas-js) client. This context can be accessed via the [useNylas](https://github.com/nylas/nylas-react#useNylas) hook.
 
 ### Hooks
 These are the following options that can be passed in to configure an instance of the Nylas JS SDK

@@ -1,7 +1,7 @@
 export {
-  default as NylasContainer,
-  NylasContainerOptions,
-} from './nylas-container';
+  default as NylasProvider,
+  NylasProviderProperties,
+} from './nylas-provider';
 export {
   default as NylasContext,
   NylasContextInterface,
