@@ -47,33 +47,12 @@ These are the following options that can be passed in to configure an instance o
 * useNylas - returns `Nylas`; an instance of the [Nylas JavaScript SDK](https://github.com/nylas/nylas-js)
 
 ### Example
-Here's how you can get started with integrating the React SDK into your application for the purpose of authenticating. For this example we're going to wrap it around the entire app, but feel free to wrap the component where you see fit.
+Here's how you can get started with integrating the React SDK into your application for the purpose of authenticating.
 
-#### index.tsx
-```typescript jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-
-import {NylasProvider} from "@nylas/nylas-react";
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <NylasProvider serverBaseUrl="http://localhost:9000">
-      <App />
-    </NylasProvider>
-  </React.StrictMode>
-);
-```
-
-#### App.tsx
 ```typescript jsx
 import React, { useEffect } from 'react';
 
-import {useNylas} from "@nylas/nylas-react";
+import { NylasProvider, useNylas } from "@nylas/nylas-react";
 
 function App() {
   const { authWithRedirect, exchangeCodeFromUrlForToken } = useNylas();
@@ -89,34 +68,35 @@ function App() {
   }, [exchangeCodeFromUrlForToken]);
 
   return (
-    <div className="App">
-      <section style={{width: '80vw', margin: "10vh auto"}}>
-        <h1>Read emails sample app</h1>
-        <p>Authenticate your email to read</p>
-        <div style={{marginTop: "30px"}}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              authWithRedirect({emailAddress: email, successRedirectUrl: "/success"})
-            }}
-          >
-            <input
-              required
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button type="submit">Connect</button>
-          </form>
-        </div>
-      </section>
-    </div>
+    <NylasProvider serverBaseUrl="http://localhost:9000">
+      <div className="App">
+        <section style={{width: '80vw', margin: "10vh auto"}}>
+          <h1>Read emails sample app</h1>
+          <p>Authenticate your email to read</p>
+          <div style={{marginTop: "30px"}}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                authWithRedirect({emailAddress: email, successRedirectUrl: "/success"})
+              }}
+            >
+              <input
+                required
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button type="submit">Connect</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </NylasProvider>
   );
 }
 
 export default App;
-
 ```
 
 ## 💙 Contributing
