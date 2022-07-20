@@ -1,3 +1,7 @@
+<a href="https://www.nylas.com/">
+    <img src="https://brand.nylas.com/assets/downloads/logo_horizontal_png/Nylas-Logo-Horizontal-Blue_.png" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
+</a>
+
 # Nylas React SDK
 
 ![npm](https://img.shields.io/npm/v/@nylas/nylas-react)
@@ -10,7 +14,7 @@ Here are some resources to help you get started:
 - [Nylas API Reference](https://developer.nylas.com/docs/api/)
 
 
-# Install
+## ⚙️ Install
 
 To install the Nylas React SDK, you will first need to have [npm](https://www.npmjs.com/get-npm) installed on your machine.
 
@@ -27,7 +31,7 @@ cd nylas-react
 npm install
 ```
 
-# Usage
+## ⚡️ Usage
 
 The Nylas React SDK provides an easy way to implement authentication in your react application.
 
@@ -46,11 +50,13 @@ These are the following options that can be passed in to configure an instance o
   * authWithRedirect - The function for building, and redirecting to, the authentication URL
   * exchangeCodeFromUrlForToken - The function for parsing the code from the authentication URL and exchanging it for an access token
 
-# Contributing
+## 💙 Contributing
+
+Interested in contributing to the Nylas JavaScript SDK project? Thanks so much for your interest! We are always looking for improvements to the project and contributions from open-source developers are greatly appreciated.
 
 Please refer to [Contributing](Contributing.md) for information about how to make contributions to this project. We welcome questions, bug reports, and pull requests.
 
-# License
+## 📝License
 
 This project is licensed under the terms of the MIT license. Please refer to [LICENSE](LICENSE.txt) for the full terms. 
 
