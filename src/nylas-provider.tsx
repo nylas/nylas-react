@@ -12,7 +12,17 @@ const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   const [client, setClient] = useState<Nylas>();
 
   useEffect(() => {
-    setClient(new Nylas(nylasProps));
+    if(!props || !props.serverBaseUrl) {
+      return;
+    }
+
+    setClient((nylas) => {
+      if(client) {
+        return client;
+      }
+
+      return nylas;
+    });
   }, [props])
 
   return (
