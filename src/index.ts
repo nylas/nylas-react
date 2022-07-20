@@ -2,11 +2,7 @@ export {
   default as NylasProvider,
   NylasProviderProperties,
 } from './nylas-provider';
-export {
-  default as NylasContext,
-  NylasContextInterface,
-  useNylas,
-} from './nylas-context';
+export { default as NylasContext, useNylas } from './nylas-context';
 export {
   NylasProps,
   AuthUrlOptions,

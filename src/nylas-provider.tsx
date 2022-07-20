@@ -16,7 +16,7 @@ const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   }, [props])
 
   return (
-    <NylasContext.Provider value={{client}}>
+    <NylasContext.Provider value={client}>
       {children}
     </NylasContext.Provider>
   )
