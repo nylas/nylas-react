@@ -2,13 +2,13 @@ import React, { useCallback, useState } from "react";
 import NylasContext from "./nylas-context";
 import Nylas, { AuthUrlOptions, ExchangeCodeOptions } from "@nylas/nylas-js";
 
-export interface NylasContainerOptions {
+export interface NylasContainerProperties {
   serverBaseUrl: string;
   children?: React.ReactNode;
 }
 
-const NylasContainer = (opts: NylasContainerOptions): JSX.Element => {
-  const {children, ...nylasProps} = opts;
+const NylasContainer = (props: NylasContainerProperties): JSX.Element => {
+  const {children, ...nylasProps} = props;
   const [client] = useState(() => new Nylas(nylasProps));
   const [authState, setAuthState] = useState(false);
 
