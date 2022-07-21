@@ -9,21 +9,24 @@ export interface NylasProviderProperties {
 
 const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
   const {children, ...nylasProps} = props;
-  const [client, setClient] = useState<Nylas>();
+  const [client, setClient] = useState(new Nylas(nylasProps));
 
-  useEffect(() => {
-    if(!props || !props.serverBaseUrl) {
+  const safeSetState = (state: Nylas) => {
+    if(client) {
+      console.warn("Client already exists.");
       return;
     }
 
-    setClient((nylas) => {
-      if(client) {
-        return client;
-      }
+    setClient(state);
+  };
 
-      return nylas;
-    });
-  }, [props])
+  useEffect(() => {
+    if(!nylasProps || !nylasProps.serverBaseUrl) {
+      return;
+    }
+
+    safeSetState(new Nylas(nylasProps));
+  }, [nylasProps])
 
   return (
     <NylasContext.Provider value={client}>
