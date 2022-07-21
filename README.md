@@ -37,18 +37,87 @@ The Nylas React SDK provides an easy way to implement authentication in your rea
 
 ### Components
 
-The Nylas React SDK provides the following component:
+The Nylas React SDK currently provides the following component:
 
-* [NylasContainer](src/nylas-container.tsx) - This is a component that utilizes React Context API to maintain a state for authentication and the [Nylas JS](https://github.com/nylas/nylas-js) client. This context can be accessed via the [useNylas](https://github.com/nylas/nylas-react#useNylas) hook.
+* [NylasProvider](src/nylas-provider.tsx) - This is a component that utilizes React Context API to maintain a state for authentication and the [Nylas JS](https://github.com/nylas/nylas-js) client. This context can be accessed via the [useNylas](https://github.com/nylas/nylas-react#useNylas) hook.
 
 ### Hooks
 These are the following options that can be passed in to configure an instance of the Nylas JS SDK
 
-* useNylas - returns an object with the following:
-  * client - The Nylas JS client instance
-  * authState - The current authentication state
-  * authWithRedirect - The function for building, and redirecting to, the authentication URL
-  * exchangeCodeFromUrlForToken - The function for parsing the code from the authentication URL and exchanging it for an access token
+* useNylas - returns `Nylas`; an instance of the [Nylas JavaScript SDK](https://github.com/nylas/nylas-js)
+
+### Example
+Here's how you can get started with integrating the React SDK into your application for the purpose of authenticating. For this example we're going to wrap it around the entire app, but feel free to wrap the component where you see fit.
+
+#### index.tsx
+```typescript jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+import {NylasProvider} from "@nylas/nylas-react";
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <NylasProvider serverBaseUrl="http://localhost:9000">
+      <App />
+    </NylasProvider>
+  </React.StrictMode>
+);
+```
+
+#### App.tsx
+```typescript jsx
+import React, { useEffect } from 'react';
+
+import {useNylas} from "@nylas/nylas-react";
+
+function App() {
+  const { authWithRedirect, exchangeCodeFromUrlForToken } = useNylas();
+  const [email, setEmail] = React.useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("code")) {
+      exchangeCodeFromUrlForToken().then((token: string) => {
+        // do something with the response
+      });
+    }
+  }, [exchangeCodeFromUrlForToken]);
+
+  return (
+    <div className="App">
+      <section style={{width: '80vw', margin: "10vh auto"}}>
+        <h1>Read emails sample app</h1>
+        <p>Authenticate your email to read</p>
+        <div style={{marginTop: "30px"}}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              authWithRedirect({emailAddress: email, successRedirectUrl: "/success"})
+            }}
+          >
+            <input
+              required
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit">Connect</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export default App;
+
+```
 
 ## 💙 Contributing
 
