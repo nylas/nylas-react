@@ -1,35 +1,49 @@
-import React, {useEffect, useState} from "react";
-import NylasContext from "./nylas-context";
-import Nylas from "@nylas/nylas-js";
+import React, { useEffect, useState } from 'react';
+import Nylas from '@nylas/nylas-js';
+
+export const NylasContext = React.createContext<Nylas | null>(null);
+
+export const useNylas = () => {
+  return React.useContext(NylasContext) as Nylas;
+};
 
 export interface NylasProviderProperties {
   serverBaseUrl: string;
+  onChange: any;
   children?: React.ReactNode;
 }
 
 const NylasProvider = (props: NylasProviderProperties): JSX.Element => {
-  const {children, ...nylasProps} = props;
+  const { children, onChange, ...nylasProps } = props;
   const [client, setClient] = useState<Nylas>();
 
-  useEffect(() => {
-    if(!props || !props.serverBaseUrl) {
+  const safeSetState = (state: Nylas) => {
+    console.log('setting state');
+    if (client) {
+      console.log('client already exists');
       return;
     }
 
-    setClient((nylas) => {
-      if(client) {
-        return client;
-      }
+    if (onChange) {
+      onChange(state);
+    }
 
-      return nylas;
-    });
-  }, [props])
+    setClient(state);
+  };
+
+  useEffect(() => {
+    if (!nylasProps || !nylasProps.serverBaseUrl) {
+      return;
+    }
+    console.log({nylasProps})
+    const n = new Nylas(nylasProps);
+    console.log(n);
+    safeSetState(n);
+  }, [nylasProps]);
 
   return (
-    <NylasContext.Provider value={client}>
-      {children}
-    </NylasContext.Provider>
-  )
-}
+    <NylasContext.Provider value={client}>{children}</NylasContext.Provider>
+  );
+};
 
 export default NylasProvider;
