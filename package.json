@@ -17,7 +17,7 @@
     "lint:prettier:check": "prettier --check '**/*.{ts,js}'"
   },
   "dependencies": {
-    "@nylas/nylas-js": "^0.1.0"
+    "@nylas/nylas-js": "^0.2.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
